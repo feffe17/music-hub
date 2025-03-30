@@ -1,26 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2 class="fs-4 text-secondary my-4">
-        {{ __('Dashboard') }}
-    </h2>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
+    <div class="container">
+        <h1>Benvenuto nella Dashboard Admin</h1>
 
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+        <!-- Opzioni per l'admin -->
+        <div>
+            {{-- <a href="{{ route('albums.index') }}">Gestisci Album</a><br>
+            <a href="{{ route('songs.index') }}">Gestisci Canzoni</a><br>
+            <a href="{{ route('genres.index') }}">Gestisci Generi</a><br> --}}
+            <a href="album index">Gestisci Album</a><br>
+            <a href="song index">Gestisci Canzoni</a><br>
+            <a href="route index">Gestisci Generi</a><br>
         </div>
     </div>
-</div>
 @endsection
