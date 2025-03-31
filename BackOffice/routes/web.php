@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('albums', [AlbumWebController::class, 'index'])->name('albums.index');
     Route::get('albums/create', [AlbumWebController::class, 'create'])->name('albums.create');
     Route::post('albums', [AlbumWebController::class, 'store'])->name('albums.store');
+    Route::get('albums/{album}', [AlbumWebController::class, 'show'])->name('albums.show');
     Route::get('albums/{album}/edit', [AlbumWebController::class, 'edit'])->name('albums.edit');
     Route::put('albums/{album}', [AlbumWebController::class, 'update'])->name('albums.update');
     Route::delete('albums/{album}', [AlbumWebController::class, 'destroy'])->name('albums.destroy');
