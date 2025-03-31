@@ -8,59 +8,18 @@ use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
-    public function index()
+    /**
+     * Restituisce tutte le canzoni con album e genere associati.
+     * Se viene passato un nome come parametro, filtra per titolo.
+     */
+    public function index(Request $request)
     {
-        return response()->json(Song::with(['album', 'genre'])->get());
-    }
+        $query = Song::with(['album', 'genre']);
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'artist' => 'required|string|max:255',
-            'album_id' => 'nullable|exists:albums,id',
-            'genre_id' => 'required|exists:genres,id',
-            'release_date' => 'nullable|date',
-            'youtube_link' => 'nullable|url',
-            'spotify_link' => 'nullable|url'
-        ]);
+        if ($request->has('name')) {
+            $query->where('title', 'like', '%' . $request->query('name') . '%');
+        }
 
-        $song = Song::create($validated);
-        return response()->json($song, 201);
-    }
-
-    public function show($id)
-    {
-        $song = Song::with(['album', 'genre'])->find($id);
-        if (!$song) return response()->json(['message' => 'Song not found'], 404);
-        return response()->json($song);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $song = Song::find($id);
-        if (!$song) return response()->json(['message' => 'Song not found'], 404);
-
-        $validated = $request->validate([
-            'title' => 'sometimes|string|max:255',
-            'artist' => 'sometimes|string|max:255',
-            'album_id' => 'nullable|exists:albums,id',
-            'genre_id' => 'sometimes|exists:genres,id',
-            'release_date' => 'nullable|date',
-            'youtube_link' => 'nullable|url',
-            'spotify_link' => 'nullable|url'
-        ]);
-
-        $song->update($validated);
-        return response()->json($song);
-    }
-
-    public function destroy($id)
-    {
-        $song = Song::find($id);
-        if (!$song) return response()->json(['message' => 'Song not found'], 404);
-
-        $song->delete();
-        return response()->json(['message' => 'Song deleted']);
+        return response()->json($query->get());
     }
 }

@@ -8,47 +8,18 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
-    public function index()
+    /**
+     * Restituisce tutti i generi con le canzoni associate.
+     * Se viene passato un nome come parametro, filtra per nome.
+     */
+    public function index(Request $request)
     {
-        return response()->json(Genre::with('songs')->get());
-    }
+        $query = Genre::with('songs');
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:genres,name'
-        ]);
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->query('name') . '%');
+        }
 
-        $genre = Genre::create($validated);
-        return response()->json($genre, 201);
-    }
-
-    public function show($id)
-    {
-        $genre = Genre::with('songs')->find($id);
-        if (!$genre) return response()->json(['message' => 'Genre not found'], 404);
-        return response()->json($genre);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $genre = Genre::find($id);
-        if (!$genre) return response()->json(['message' => 'Genre not found'], 404);
-
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255|unique:genres,name,' . $id
-        ]);
-
-        $genre->update($validated);
-        return response()->json($genre);
-    }
-
-    public function destroy($id)
-    {
-        $genre = Genre::find($id);
-        if (!$genre) return response()->json(['message' => 'Genre not found'], 404);
-
-        $genre->delete();
-        return response()->json(['message' => 'Genre deleted']);
+        return response()->json($query->get());
     }
 }
