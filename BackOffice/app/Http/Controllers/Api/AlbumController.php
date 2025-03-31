@@ -8,53 +8,18 @@ use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
-    public function index()
+    /**
+     * Restituisce tutti gli album con le canzoni associate
+     * Se viene passato un nome come parametro, filtra per nome.
+     */
+    public function index(Request $request)
     {
-        return response()->json(Album::with('songs')->get());
-    }
+        $query = Album::with('songs');
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:' . date('Y'),
-            'artist' => 'required|string|max:255',
-            'description' => 'nullable|string'
-        ]);
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->query('name') . '%');
+        }
 
-        $album = Album::create($validated);
-        return response()->json($album, 201);
-    }
-
-    public function show($id)
-    {
-        $album = Album::with('songs')->find($id);
-        if (!$album) return response()->json(['message' => 'Album not found'], 404);
-        return response()->json($album);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $album = Album::find($id);
-        if (!$album) return response()->json(['message' => 'Album not found'], 404);
-
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'year' => 'sometimes|integer|min:1900|max:' . date('Y'),
-            'artist' => 'sometimes|string|max:255',
-            'description' => 'nullable|string'
-        ]);
-
-        $album->update($validated);
-        return response()->json($album);
-    }
-
-    public function destroy($id)
-    {
-        $album = Album::find($id);
-        if (!$album) return response()->json(['message' => 'Album not found'], 404);
-
-        $album->delete();
-        return response()->json(['message' => 'Album deleted']);
+        return response()->json($query->get());
     }
 }

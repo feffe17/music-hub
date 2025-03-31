@@ -1,35 +1,44 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Api\AlbumController;
-use App\Http\Controllers\Api\SongController;
-use App\Http\Controllers\Api\GenreController;
+use App\Http\Controllers\AlbumWebController;
+use App\Http\Controllers\GenreWebController;
+use App\Http\Controllers\SongWebController;
 use Illuminate\Support\Facades\Route;
 
-// Rotte protette con autenticazione
-Route::middleware('auth:sanctum')->group(function () {
+// Rotte protette per la gestione nel backend (Blade)
+Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Gestione degli album
-    Route::post('albums', [AlbumController::class, 'store']);
-    Route::put('albums/{id}', [AlbumController::class, 'update']);
-    Route::delete('albums/{id}', [AlbumController::class, 'destroy']);
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-    // Gestione delle canzoni
-    Route::post('songs', [SongController::class, 'store']);
-    Route::put('songs/{id}', [SongController::class, 'update']);
-    Route::delete('songs/{id}', [SongController::class, 'destroy']);
+    // Gestione Album
+    Route::get('albums', [AlbumWebController::class, 'index'])->name('albums.index');
+    Route::get('albums/create', [AlbumWebController::class, 'create'])->name('albums.create');
+    Route::post('albums', [AlbumWebController::class, 'store'])->name('albums.store');
+    Route::get('albums/{album}/edit', [AlbumWebController::class, 'edit'])->name('albums.edit');
+    Route::put('albums/{album}', [AlbumWebController::class, 'update'])->name('albums.update');
+    Route::delete('albums/{album}', [AlbumWebController::class, 'destroy'])->name('albums.destroy');
 
-    // Gestione dei generi
-    Route::post('genres', [GenreController::class, 'store']);
-    Route::put('genres/{id}', [GenreController::class, 'update']);
-    Route::delete('genres/{id}', [GenreController::class, 'destroy']);
-});
+    // Gestione Canzoni
+    Route::get('songs', [SongWebController::class, 'index'])->name('songs.index');
+    Route::get('songs/create', [SongWebController::class, 'create'])->name('songs.create');
+    Route::post('songs', [SongWebController::class, 'store'])->name('songs.store');
+    Route::get('songs/{song}/edit', [SongWebController::class, 'edit'])->name('songs.edit');
+    Route::put('songs/{song}', [SongWebController::class, 'update'])->name('songs.update');
+    Route::delete('songs/{song}', [SongWebController::class, 'destroy'])->name('songs.destroy');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    // Gestione Generi
+    Route::get('genres', [GenreWebController::class, 'index'])->name('genres.index');
+    Route::get('genres/create', [GenreWebController::class, 'create'])->name('genres.create');
+    Route::post('genres', [GenreWebController::class, 'store'])->name('genres.store');
+    Route::get('genres/{genre}/edit', [GenreWebController::class, 'edit'])->name('genres.edit');
+    Route::put('genres/{genre}', [GenreWebController::class, 'update'])->name('genres.update');
+    Route::delete('genres/{genre}', [GenreWebController::class, 'destroy'])->name('genres.destroy');
 
-Route::middleware('auth')->group(function () {
+    // Profilo utente
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

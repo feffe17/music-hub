@@ -5,12 +5,12 @@ use App\Http\Controllers\Api\SongController;
 use App\Http\Controllers\Api\GenreController;
 use Illuminate\Support\Facades\Route;
 
-// Rotte pubbliche accessibili dal frontend React (solo GET)
+// API pubbliche per il frontend React (solo GET)
 Route::get('albums', [AlbumController::class, 'index']);
-Route::get('albums/{id}', [AlbumController::class, 'show']);
+Route::get('albums/search/{name}', [AlbumController::class, 'searchByName']);
 
 Route::get('songs', [SongController::class, 'index']);
-Route::get('songs/{id}', [SongController::class, 'show']);
+Route::get('songs/search/{name}', [SongController::class, 'searchByName']);
 
 Route::get('genres', [GenreController::class, 'index']);
-Route::get('genres/{id}', [GenreController::class, 'show']);
+Route::get('genres/search/{name}', [GenreController::class, 'searchByName']);
