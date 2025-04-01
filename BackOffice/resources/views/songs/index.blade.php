@@ -29,6 +29,9 @@
                     <td>{{ $song->album ? $song->album->name : '-' }}</td>
                     <td>{{ $song->genre ? $song->genre->name : '-' }}</td>
                     <td>
+                        <!-- Visualizza -->
+                        <a href="{{ route('songs.show', $song->id) }}" class="btn btn-info btn-sm">Visualizza</a>
+
                         <!-- Modifica -->
                         <a href="{{ route('songs.edit', $song->id) }}" class="btn btn-warning btn-sm">Modifica</a>
 

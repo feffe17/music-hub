@@ -19,6 +19,15 @@ class SongWebController extends Controller
     }
 
     /**
+     * Mostra i dettagli di una singola canzone.
+     */
+    public function show($id)
+    {
+        $song = Song::with(['album', 'genre'])->findOrFail($id);
+        return view('songs.show', compact('song'));
+    }
+
+    /**
      * Mostra il form per creare una nuova canzone.
      */
     public function create()

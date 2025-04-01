@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('songs', [SongWebController::class, 'index'])->name('songs.index');
     Route::get('songs/create', [SongWebController::class, 'create'])->name('songs.create');
     Route::post('songs', [SongWebController::class, 'store'])->name('songs.store');
+    Route::get('songs/{song}', [SongWebController::class, 'show'])->name('songs.show');
     Route::get('songs/{song}/edit', [SongWebController::class, 'edit'])->name('songs.edit');
     Route::put('songs/{song}', [SongWebController::class, 'update'])->name('songs.update');
     Route::delete('songs/{song}', [SongWebController::class, 'destroy'])->name('songs.destroy');
