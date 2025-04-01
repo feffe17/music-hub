@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1>Benvenuto nella Dashboard Admin</h1>
+<div class="container text-center mt-5">
+    <h1 class="mb-4">Benvenuto nella Dashboard Admin</h1>
 
-        <!-- Opzioni per l'admin -->
-        <div>
-            <a href="{{ route("albums.index") }}">Gestisci Album</a><br>
-            <a href="{{ route('songs.index') }}">Gestisci Canzoni</a><br>
-            <a href="{{ route('genres.index') }}">Gestisci Generi</a><br>
-        </div>
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{{ route('albums.index') }}" class="btn btn-primary">Gestisci Album</a>
+        <a href="{{ route('songs.index') }}" class="btn btn-success">Gestisci Canzoni</a>
+        <a href="{{ route('genres.index') }}" class="btn btn-secondary">Gestisci Generi</a>
     </div>
+</div>
 @endsection
