@@ -25,5 +25,39 @@
             </form>
         </div>
     </div>
+
+    <!-- Lista delle canzoni dell'album -->
+    <h3 class="mt-5">Canzoni dell'Album</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titolo</th>
+                <th>Artista</th>
+                <th>Genere</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($album->songs as $song)
+                <tr>
+                    <td>{{ $song->title }}</td>
+                    <td>{{ $song->artist }}</td>
+                    <td>{{ $song->genre->name ?? 'N/D' }}</td>
+                    <td>
+                        <a href="{{ route('songs.show', $song->id) }}" class="btn btn-info">Visualizza</a>
+                        <a href="{{ route('songs.edit', $song->id) }}" class="btn btn-warning">Modifica</a>
+                        <form action="{{ route('songs.destroy', $song->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Sei sicuro di voler eliminare questa canzone?')">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <!-- Pulsante per aggiungere una nuova canzone a questo album -->
+    <a href="{{ route('songs.create', ['album_id' => $album->id]) }}" class="btn btn-success mt-3">Aggiungi Canzone</a>
 </div>
 @endsection

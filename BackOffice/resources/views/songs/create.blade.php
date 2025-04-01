@@ -27,7 +27,9 @@
             <select class="form-control" id="album_id" name="album_id">
                 <option value="">Seleziona un album</option>
                 @foreach($albums as $album)
-                    <option value="{{ $album->id }}">{{ $album->name }}</option>
+                    <option value="{{ $album->id }}" {{ isset($albumId) && $albumId == $album->id ? 'selected' : '' }}>
+                        {{ $album->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -57,7 +59,7 @@
 
         <!-- Pulsanti -->
         <button type="submit" class="btn btn-success">Salva Canzone</button>
-        <a href="{{ route('songs.index') }}" class="btn btn-secondary">Annulla</a>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">Annulla</a>
 
     </form>
 </div>

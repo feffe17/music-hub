@@ -65,7 +65,7 @@
 
         <!-- Pulsanti -->
         <button type="submit" class="btn btn-success">Aggiorna Canzone</button>
-        <a href="{{ route('songs.index') }}" class="btn btn-secondary">Annulla</a>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">Annulla</a>
 
     </form>
 </div>

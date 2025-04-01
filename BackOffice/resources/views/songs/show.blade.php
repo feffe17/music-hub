@@ -35,7 +35,7 @@
                 </p>
             @endif
 
-            <a href="{{ route('songs.index') }}" class="btn btn-secondary">Torna alla lista</a>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Torna indietro</a>
         </div>
     </div>
 </div>

@@ -30,12 +30,15 @@ class SongWebController extends Controller
     /**
      * Mostra il form per creare una nuova canzone.
      */
-    public function create()
+    public function create(Request $request)
     {
         $albums = Album::all();
         $genres = Genre::all();
-        return view('songs.create', compact('albums', 'genres'));
+        $albumId = $request->get('album_id');  // Ottieni l'ID dell'album se passato
+
+        return view('songs.create', compact('albums', 'genres', 'albumId'));
     }
+
 
     /**
      * Salva una nuova canzone nel database.
