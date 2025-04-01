@@ -5,8 +5,21 @@
 <div class="container">
     <h1>Gestione Canzoni</h1>
 
-    <!-- Pulsante per aggiungere una nuova canzone -->
-    <a href="{{ route('songs.create') }}" class="btn btn-primary mb-3">Aggiungi Nuova Canzone</a>
+    <div class="d-flex justify-content-between row">
+        <!-- searchbar -->
+        <form action="{{ route('songs.index') }}" method="GET" class="mb-3 col-12 col-md-4">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Cerca per titolo..." value="{{ request('search') }}">
+                <button type="submit" class="btn btn-primary">Cerca</button>
+                <a href="{{ route('songs.index') }}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+        
+        <!-- Pulsante per aggiungere una nuova canzone -->
+        <a href="{{ route('songs.create') }}" class="btn btn-primary mb-3 col-12 col-md-3">Aggiungi Nuova Canzone</a>
+
+    </div>
+
 
     <!-- Tabella con le canzoni -->
     <table class="table table-bordered">

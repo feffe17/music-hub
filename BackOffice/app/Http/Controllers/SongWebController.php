@@ -12,11 +12,19 @@ class SongWebController extends Controller
     /**
      * Mostra la lista di tutte le canzoni.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $songs = Song::with(['album', 'genre'])->get();
+        $query = Song::with(['album', 'genre']);
+
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        $songs = $query->get();
+
         return view('songs.index', compact('songs'));
     }
+
 
     /**
      * Mostra i dettagli di una singola canzone.

@@ -5,11 +5,12 @@
     <h1>Gestione Album</h1>
 
     <div class="d-flex justify-content-between row">
-        <!-- Form di ricerca -->
+        <!-- searchbar -->
         <form action="{{ route('albums.index') }}" method="GET" class="mb-3 col-12 col-md-4">
             <div class="input-group">
                 <input type="text" name="search" value="{{ old('search', $search) }}" class="form-control" placeholder="Cerca album...">
                 <button type="submit" class="btn btn-primary">Cerca</button>
+                <a href="{{ route('albums.index') }}" class="btn btn-secondary">Reset</a>
             </div>
         </form>
 
