@@ -26,7 +26,7 @@
                         <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-warning btn-sm">Modifica</a>
                         
                         <!-- Elimina -->
-                        <form action="{{ route('genres.destroy', $genre->id) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('genres.destroy', $genre->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo genere? Perederai anche tutti gli album e le canzoni a esso associate');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Elimina</button>

@@ -10,10 +10,20 @@ class AlbumWebController extends Controller
     /**
      * Mostra la lista di tutti gli album.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $albums = Album::with('songs')->get();
-        return view('albums.index', compact('albums'));
+        // Recupera il termine di ricerca dalla query string
+        $search = $request->get('search');
+
+        // Filtriamo gli album in base al nome
+        if ($search) {
+            $albums = Album::where('name', 'like', '%' . $search . '%')->get();
+        } else {
+            // Se non c'è un termine di ricerca, mostriamo tutti gli album
+            $albums = Album::all();
+        }
+
+        return view('albums.index', compact('albums', 'search'));
     }
 
     /**
