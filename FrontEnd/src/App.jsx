@@ -5,6 +5,7 @@ import DefaultLayout from './components/layouts/DefaultLayout'
 import Home from './pages/Home'
 import Albums from "./Pages/AlbumDetails"
 import Songs from "./Pages/SongDetails"
+import NotFound from './pages/NotFoundPage'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
               <Route path="/album/:albumName" element={<Albums />} />
               <Route path="/song/:songName" element={<Songs />} />
               {/* <Route path="/genres" element={<Genres />} /> */}
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
