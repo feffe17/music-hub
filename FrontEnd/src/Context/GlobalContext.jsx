@@ -30,15 +30,18 @@ export const GlobalProvider = ({ children }) => {
 
     // Funzioni di ricerca
     const searchAlbums = async (name) => {
-        fetchData(`albums/search/${name}`, setAlbums);
+        setAlbums([]);
+        await fetchData(`albums?name=${name}`, setAlbums);
     };
 
     const searchSongs = async (name) => {
-        fetchData(`songs/search/${name}`, setSongs);
+        setSongs([]);
+        await fetchData(`songs?name=${name}`, setSongs);
     };
 
     const searchGenres = async (name) => {
-        fetchData(`genres/search/${name}`, setGenres);
+        setGenres([]);
+        await fetchData(`genres?name=${name}`, setGenres);
     };
 
     return (
