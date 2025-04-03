@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom'
 import './App.css'
 import { GlobalProvider } from './context/GlobalContext'
-import DefaultLayout from './components/layouts/DefaultLayout'
+import DefaultLayout from './Pages/DefaultLayout'
 import Home from './pages/Home'
 import Albums from "./Pages/AlbumDetails"
 import Songs from "./Pages/SongDetails"
