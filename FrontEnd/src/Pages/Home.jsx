@@ -7,6 +7,19 @@ export default function Home() {
     const [results, setResults] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
 
+    const getBadgeClass = (type) => {
+        switch (type) {
+            case "Album":
+                return "bg-primary";
+            case "Song":
+                return "bg-success";
+            case "Genre":
+                return "bg-warning text-dark";
+            default:
+                return "bg-secondary";
+        }
+    }
+
     const handleSearch = async (query) => {
         await Promise.all([
             searchAlbums(query),
@@ -38,8 +51,12 @@ export default function Home() {
                         {results.length > 0 ? (
                             <ul className="list-group">
                                 {results.map((item, index) => (
-                                    <li key={index} className="list-group-item">
-                                        {item.name || item.title}
+                                    <li
+                                        key={index}
+                                        className="list-group-item d-flex justify-content-between align-items-center"
+                                    >
+                                        <span>{item.name || item.title}</span>
+                                        <span className={`badge ${getBadgeClass(item.type)}`}>{item.type}</span>
                                     </li>
                                 ))}
                             </ul>
