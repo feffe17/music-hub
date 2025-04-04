@@ -1,4 +1,4 @@
-export default function AlbumDetails() {
+export default function Albums() {
     return (
         <div>
             <h1>Album Details</h1>

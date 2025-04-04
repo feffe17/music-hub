@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import SearchBar from "../Components/SearchBar";
+import { NavLink } from "react-router-dom";
 
 export default function Home() {
     const { albums, songs, genres, searchAlbums, searchSongs, searchGenres } = useContext(GlobalContext);
@@ -19,6 +20,20 @@ export default function Home() {
                 return "bg-secondary";
         }
     }
+
+    const getLinkPath = (item) => {
+        const name = encodeURIComponent(item.name || item.title);
+        switch (item.type) {
+            case "Album":
+                return `/album/${name}`;
+            case "Song":
+                return `/song/${name}`;
+            case "Genre":
+                return `/genre/${name}`;
+            default:
+                return "#";
+        }
+    };
 
     const handleSearch = async (query) => {
         await Promise.all([
@@ -51,13 +66,16 @@ export default function Home() {
                         {results.length > 0 ? (
                             <ul className="list-group">
                                 {results.map((item, index) => (
-                                    <li
+                                    <NavLink
+                                        to={getLinkPath(item)}
                                         key={index}
-                                        className="list-group-item d-flex justify-content-between align-items-center"
+                                        className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                                     >
                                         <span>{item.name || item.title}</span>
-                                        <span className={`badge ${getBadgeClass(item.type)}`}>{item.type}</span>
-                                    </li>
+                                        <span className={`badge ${getBadgeClass(item.type)}`}>
+                                            {item.type}
+                                        </span>
+                                    </NavLink>
                                 ))}
                             </ul>
                         ) : (

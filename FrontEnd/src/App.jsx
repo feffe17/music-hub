@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-rou
 import './App.css'
 import { GlobalProvider } from './context/GlobalContext'
 import DefaultLayout from './Pages/DefaultLayout'
-import Home from './pages/Home'
+import Home from './Pages/Home'
 import Albums from "./Pages/AlbumDetails"
 import Songs from "./Pages/SongDetails"
 import NotFound from './pages/NotFoundPage'
+import Genres from './Pages/GenreDetails'
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/album/:albumName" element={<Albums />} />
               <Route path="/song/:songName" element={<Songs />} />
-              {/* <Route path="/genres" element={<Genres />} /> */}
+              <Route path="/genre/:genreName" element={<Genres />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
