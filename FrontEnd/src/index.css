@@ -14,3 +14,17 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+h2 {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+}
+
+h4 {
+    font-size: 1.2rem !important;
+}
+
+h5 {
+    font-size: 1rem !important;
+    margin-top: 1rem !important;
+}
