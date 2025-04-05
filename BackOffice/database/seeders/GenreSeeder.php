@@ -9,7 +9,7 @@ class GenreSeeder extends Seeder
 {
     public function run(): void
     {
-        $genres = ['Rock', 'Pop', 'Hip-Hop', 'Jazz', 'Electronic', 'Classical'];
+        $genres = ['Rock', 'Pop', 'Hip-Hop', 'Jazz', 'Electronic'];
 
         foreach ($genres as $genre) {
             Genre::firstOrCreate(['name' => $genre]);

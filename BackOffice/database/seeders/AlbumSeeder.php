@@ -4,28 +4,52 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Album;
-use App\Models\Genre;
-use Faker\Factory as Faker;
 
 class AlbumSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
-        $genres = Genre::all();
+        $albums = [
+            [
+                'name' => 'Thriller',
+                'year' => 1982,
+                'artist' => 'Michael Jackson',
+                'description' => 'Uno degli album più venduti di tutti i tempi.',
+            ],
+            [
+                'name' => 'Back in Black',
+                'year' => 1980,
+                'artist' => 'AC/DC',
+                'description' => 'Rock duro e puro da una delle band più iconiche.',
+            ],
+            [
+                'name' => '21',
+                'year' => 2011,
+                'artist' => 'Adele',
+                'description' => 'Ballate struggenti e voce potente.',
+            ],
+            [
+                'name' => 'The Eminem Show',
+                'year' => 2002,
+                'artist' => 'Eminem',
+                'description' => 'Uno degli album hip-hop più celebri.',
+            ],
+            [
+                'name' => 'Discovery',
+                'year' => 2001,
+                'artist' => 'Daft Punk',
+                'description' => 'Capolavoro della musica elettronica.',
+            ],
+            [
+                'name' => 'Kind of Blue',
+                'year' => 1959,
+                'artist' => 'Miles Davis',
+                'description' => 'Il jazz in una delle sue forme più pure.',
+            ],
+        ];
 
-        if ($genres->isEmpty()) {
-            $this->command->warn("⚠️ Nessun genere trovato! Esegui prima il GenreSeeder.");
-            return;
-        }
-
-        for ($i = 0; $i < 10; $i++) {
-            Album::create([
-                'name' => $faker->sentence(3),
-                'year' => $faker->year(),
-                'artist' => $faker->name(),
-                'description' => $faker->paragraph(),
-            ]);
+        foreach ($albums as $albumData) {
+            Album::firstOrCreate(['name' => $albumData['name']], $albumData);
         }
     }
 }
