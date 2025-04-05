@@ -1,9 +1,9 @@
 import { useParams, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { LineWobble } from 'ldrs/react';  // Importiamo il loader
+import { LineWobble } from 'ldrs/react';
 
 export default function Albums() {
-    const { albumName } = useParams(); // Recuperiamo il parametro "albumName" dalla route
+    const { albumName } = useParams();
     const [album, setAlbum] = useState(null);
     const [loading, setLoading] = useState(true);
     const [notFound, setNotFound] = useState(false);
@@ -70,7 +70,7 @@ export default function Albums() {
                                 {album.songs.map((song) => (
                                     <li key={song.id} className="mb-2">
                                         <NavLink
-                                            to={`/song/${song.title}`} // Usando NavLink per la navigazione
+                                            to={`/song/${song.title}`}
                                             className="text-decoration-none"
 
                                         >
