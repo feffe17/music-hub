@@ -95,27 +95,23 @@ export default function Home() {
                 </div>
             )}
 
-            {/* <div className="row mt-5">
-                <div className="col-md-12">
-                    <h2>Ultime Novità</h2>
-                    
-                </div>
-            </div> */}
             <h1 className="mt-5">Ultime Novità</h1>
             <div className="row">
                 <h3 className="mt-3">Ultimi Album</h3>
                 {latestAlbums.map((album) => (
                     <div className="col-md-4 mb-3" key={album.id}>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title><strong>{album.name}</strong></Card.Title>
-                                <Card.Text>Artista: {album.artist}</Card.Text>
-                                <Card.Text>Anno: {album.year}</Card.Text>
-                                {album.description && (
-                                    <Card.Text><em>{album.description}</em></Card.Text>
-                                )}
-                            </Card.Body>
-                        </Card>
+                        <NavLink to={`/album/${encodeURIComponent(album.name)}`} className="text-decoration-none">
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title><strong>{album.name}</strong></Card.Title>
+                                    <Card.Text>Artista: {album.artist}</Card.Text>
+                                    <Card.Text>Anno: {album.year}</Card.Text>
+                                    {album.description && (
+                                        <Card.Text><em>{album.description}</em></Card.Text>
+                                    )}
+                                </Card.Body>
+                            </Card>
+                        </NavLink>
                     </div>
                 ))}
             </div>
@@ -124,17 +120,16 @@ export default function Home() {
                 <h3 className="mt-3">Ultime Canzoni</h3>
                 {latestSongs.map((song) => (
                     <div className="col-md-4 mb-3" key={song.id}>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title><strong>{song.title}</strong></Card.Title>
-                                <Card.Text>Artista: {song.artist}</Card.Text>
-                                <Card.Text>Data di uscita: {song.release_date}</Card.Text>
-                                <Card.Text>
-                                    <a href={song.youtube_link} target="_blank" rel="noopener noreferrer">YouTube</a> |{" "}
-                                    <a href={song.spotify_link} target="_blank" rel="noopener noreferrer">Spotify</a>
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <NavLink to={`/song/${encodeURIComponent(song.title)}`} className="text-decoration-none">
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title><strong>{song.title}</strong></Card.Title>
+                                    <Card.Text>Artista: {song.artist}</Card.Text>
+                                    <Card.Text>Data di uscita: {song.release_date}</Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        </NavLink>
                     </div>
                 ))}
             </div>
