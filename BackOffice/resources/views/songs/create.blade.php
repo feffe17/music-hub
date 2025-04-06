@@ -37,7 +37,7 @@
         <!-- Genere -->
         <div class="mb-3">
             <label for="genre_id" class="form-label fw-bold">Genere</label>
-            <select class="form-control" id="genre_id" name="genre_id">
+            <select class="form-control" id="genre_id" name="genre_id" required>
                 <option value="">Seleziona un genere</option>
                 @foreach($genres as $genre)
                     <option value="{{ $genre->id }}">{{ $genre->name }}</option>
@@ -48,7 +48,7 @@
         <!-- Data di rilascio -->
         <div class="mb-3">
             <label for="release_date" class="form-label fw-bold">Data di Rilascio</label>
-            <input type="date" class="form-control" id="release_date" name="release_date">
+            <input type="date" class="form-control" id="release_date" name="release_date" max="" required>
         </div>
 
          <!-- Link YouTube-->
@@ -69,5 +69,10 @@
 
     </form>
 </div>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('release_date').max = today;
+</script>
 
 @endsection
