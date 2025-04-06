@@ -2,11 +2,29 @@ import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import SearchBar from "../Components/SearchBar";
 import { NavLink } from "react-router-dom";
+import Card from 'react-bootstrap/Card';
+
 
 export default function Home() {
     const { albums, songs, genres, searchAlbums, searchSongs, searchGenres } = useContext(GlobalContext);
     const [results, setResults] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
+
+    const handleSearch = async (query) => {
+        await Promise.all([
+            searchAlbums(query),
+            searchSongs(query),
+            searchGenres(query),
+        ]);
+        setHasSearched(true);
+    };
+
+    useEffect(() => {
+        if (hasSearched) {
+            setResults([...albums, ...songs, ...genres]);
+        }
+    }, [albums, songs, genres]);
+
 
     const getBadgeClass = (type) => {
         switch (type) {
@@ -35,21 +53,13 @@ export default function Home() {
         }
     };
 
-    const handleSearch = async (query) => {
-        await Promise.all([
-            searchAlbums(query),
-            searchSongs(query),
-            searchGenres(query),
-        ]);
-        setHasSearched(true);
-    };
+    const latestSongs = [...songs]
+        .sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
+        .slice(0, 3);
 
-    useEffect(() => {
-        if (hasSearched) {
-            setResults([...albums, ...songs, ...genres]);
-        }
-    }, [albums, songs, genres]);
-
+    const latestAlbums = [...albums]
+        .sort((a, b) => parseInt(b.year) - parseInt(a.year))
+        .slice(0, 3);
 
 
     return (
@@ -85,11 +95,48 @@ export default function Home() {
                 </div>
             )}
 
-            <div className="row mt-5">
+            {/* <div className="row mt-5">
                 <div className="col-md-12">
                     <h2>Ultime Novità</h2>
-                    {/* Qui puoi aggiungere le ultime novità musicali */}
+                    
                 </div>
+            </div> */}
+            <h1 className="mt-5">Ultime Novità</h1>
+            <div className="row">
+                <h3 className="mt-3">Ultimi Album</h3>
+                {latestAlbums.map((album) => (
+                    <div className="col-md-4 mb-3" key={album.id}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title><strong>{album.name}</strong></Card.Title>
+                                <Card.Text>Artista: {album.artist}</Card.Text>
+                                <Card.Text>Anno: {album.year}</Card.Text>
+                                {album.description && (
+                                    <Card.Text><em>{album.description}</em></Card.Text>
+                                )}
+                            </Card.Body>
+                        </Card>
+                    </div>
+                ))}
+            </div>
+
+            <div className="row mt-4">
+                <h3 className="mt-3">Ultime Canzoni</h3>
+                {latestSongs.map((song) => (
+                    <div className="col-md-4 mb-3" key={song.id}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title><strong>{song.title}</strong></Card.Title>
+                                <Card.Text>Artista: {song.artist}</Card.Text>
+                                <Card.Text>Data di uscita: {song.release_date}</Card.Text>
+                                <Card.Text>
+                                    <a href={song.youtube_link} target="_blank" rel="noopener noreferrer">YouTube</a> |{" "}
+                                    <a href={song.spotify_link} target="_blank" rel="noopener noreferrer">Spotify</a>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                ))}
             </div>
         </div>
     );
