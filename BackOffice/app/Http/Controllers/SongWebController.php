@@ -58,7 +58,7 @@ class SongWebController extends Controller
             'artist' => 'required|string|max:255',
             'album_id' => 'nullable|exists:albums,id',
             'genre_id' => 'required|exists:genres,id',
-            'release_date' => 'nullable|date',
+            'release_date' => 'date',
             'youtube_link' => 'nullable|url',
             'spotify_link' => 'nullable|url'
         ]);

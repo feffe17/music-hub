@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->string('artist');
             $table->foreignId('album_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('genre_id')->constrained()->onDelete('cascade');
-            $table->date('release_date')->nullable();
+            $table->date('release_date');
             $table->string('youtube_link')->nullable();
             $table->string('spotify_link')->nullable();
             $table->timestamps();

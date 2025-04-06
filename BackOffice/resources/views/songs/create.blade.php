@@ -45,6 +45,12 @@
             </select>
         </div>
 
+        <!-- Data di rilascio -->
+        <div class="mb-3">
+            <label for="release_date" class="form-label fw-bold">Data di Rilascio</label>
+            <input type="date" class="form-control" id="release_date" name="release_date">
+        </div>
+
          <!-- Link YouTube-->
          <div class="mb-3">
             <label for="youtube_link" class="form-label fw-bold">Link YouTube</label>
