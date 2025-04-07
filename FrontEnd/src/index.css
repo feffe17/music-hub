@@ -28,3 +28,13 @@ h5 {
     font-size: 1rem !important;
     margin-top: 1rem !important;
 }
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    transition: all 0.2s ease-in-out;
+}
+
+.transition {
+    transition: all 0.2s ease-in-out;
+}

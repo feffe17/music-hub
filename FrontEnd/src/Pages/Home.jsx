@@ -101,16 +101,19 @@ export default function Home() {
                 {latestAlbums.map((album) => (
                     <div className="col-md-4 mb-3" key={album.id}>
                         <NavLink to={`/album/${encodeURIComponent(album.name)}`} className="text-decoration-none">
-                            <Card>
+                            <Card className="h-100 shadow-sm rounded border-0 hover-shadow transition">
                                 <Card.Body>
-                                    <Card.Title><strong>{album.name}</strong></Card.Title>
-                                    <Card.Text>Artista: {album.artist}</Card.Text>
-                                    <Card.Text>Anno: {album.year}</Card.Text>
+                                    <Card.Title className="mb-2">
+                                        <strong>{album.name}</strong>
+                                    </Card.Title>
+                                    <Card.Text className="mb-1">🎤 Artista: {album.artist}</Card.Text>
+                                    <Card.Text className="mb-1">📅 Anno: {album.year}</Card.Text>
                                     {album.description && (
-                                        <Card.Text><em>{album.description}</em></Card.Text>
+                                        <Card.Text className="text-muted"><em>{album.description}</em></Card.Text>
                                     )}
                                 </Card.Body>
                             </Card>
+
                         </NavLink>
                     </div>
                 ))}
@@ -121,14 +124,16 @@ export default function Home() {
                 {latestSongs.map((song) => (
                     <div className="col-md-4 mb-3" key={song.id}>
                         <NavLink to={`/song/${encodeURIComponent(song.title)}`} className="text-decoration-none">
-                            <Card>
+                            <Card className="h-100 shadow-sm rounded border-0 hover-shadow transition">
                                 <Card.Body>
-                                    <Card.Title><strong>{song.title}</strong></Card.Title>
-                                    <Card.Text>Artista: {song.artist}</Card.Text>
-                                    <Card.Text>Data di uscita: {song.release_date}</Card.Text>
-
+                                    <Card.Title className="mb-2">
+                                        <strong>{song.title}</strong>
+                                    </Card.Title>
+                                    <Card.Text className="mb-1">🎤 Artista: {song.artist}</Card.Text>
+                                    <Card.Text className="mb-1">📅 Data di uscita: {song.release_date}</Card.Text>
                                 </Card.Body>
                             </Card>
+
                         </NavLink>
                     </div>
                 ))}
