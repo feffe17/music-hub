@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class SongWebController extends Controller
 {
-    /**
-     * Mostra la lista di tutte le canzoni.
-     */
+    //Mostra la lista di tutte le canzoni
     public function index(Request $request)
     {
         $query = Song::with(['album', 'genre']);
@@ -26,31 +24,25 @@ class SongWebController extends Controller
     }
 
 
-    /**
-     * Mostra i dettagli di una singola canzone.
-     */
+    //Mostra i dettagli di una singola canzone
     public function show($id)
     {
         $song = Song::with(['album', 'genre'])->findOrFail($id);
         return view('songs.show', compact('song'));
     }
 
-    /**
-     * Mostra il form per creare una nuova canzone.
-     */
+    //Mostra il form per creare una nuova canzone
     public function create(Request $request)
     {
         $albums = Album::all();
         $genres = Genre::all();
-        $albumId = $request->get('album_id');  // Ottieni l'ID dell'album se passato
+        $albumId = $request->get('album_id');  // otteniamo l'id dell'album se presente
 
         return view('songs.create', compact('albums', 'genres', 'albumId'));
     }
 
 
-    /**
-     * Salva una nuova canzone nel database.
-     */
+    //Salva una nuova canzone nel database
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -68,9 +60,7 @@ class SongWebController extends Controller
         return redirect()->route('songs.index')->with('success', 'Canzone creata con successo!');
     }
 
-    /**
-     * Mostra il form per modificare una canzone.
-     */
+    //Mostra il form per modificare una canzone
     public function edit($id)
     {
         $song = Song::findOrFail($id);
@@ -79,9 +69,7 @@ class SongWebController extends Controller
         return view('songs.edit', compact('song', 'albums', 'genres'));
     }
 
-    /**
-     * Aggiorna una canzone esistente.
-     */
+    //Aggiorna una canzone esistente
     public function update(Request $request, $id)
     {
         $song = Song::findOrFail($id);
@@ -101,9 +89,7 @@ class SongWebController extends Controller
         return redirect()->route('songs.index')->with('success', 'Canzone aggiornata con successo!');
     }
 
-    /**
-     * Cancella una canzone.
-     */
+    //Cancella una canzone
     public function destroy($id)
     {
         $song = Song::findOrFail($id);

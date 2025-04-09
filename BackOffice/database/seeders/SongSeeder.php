@@ -15,7 +15,7 @@ class SongSeeder extends Seeder
         $genres = Genre::all()->keyBy('name');
 
         if ($albums->isEmpty() || $genres->isEmpty()) {
-            $this->command->warn("⚠️ Assicurati di eseguire prima AlbumSeeder e GenreSeeder.");
+            $this->command->warn("Errore nell'ordine dei seeders: eseguire prima i generi, poi gli album e infine le canzoni.");
             return;
         }
 
@@ -111,7 +111,7 @@ class SongSeeder extends Seeder
             foreach ($songs as $song) {
                 $genre = $genres->get($song['genre']);
                 if (!$genre) {
-                    $this->command->warn("⚠️ Genere '{$song['genre']}' non trovato.");
+                    $this->command->warn("Genere '{$song['genre']}' non trovato.");
                     continue;
                 }
 

@@ -1,8 +1,8 @@
-// GenreDetails.jsx
 import { useParams, NavLink } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 import { LineWobble } from "ldrs/react";
+import { getAlbumById } from "../utils/helper";
 
 export default function GenreDetails() {
     const { genreName } = useParams();
@@ -36,10 +36,6 @@ export default function GenreDetails() {
         fetchGenre();
     }, [genreName]);
 
-    const getAlbumById = (id) => {
-        return albums.find((album) => album.id === id);
-    };
-
     if (loading) {
         return (
             <div className="text-center py-5">
@@ -52,24 +48,26 @@ export default function GenreDetails() {
     if (notFound || !genre) {
         return (
             <div className="text-center py-5">
-                <p className="text-danger">❌ Nessun genere trovato con il nome <strong>"{genreName}"</strong>.</p>
+                <p className="text-danger">
+                    ❌ Nessun genere trovato con il nome <strong>"{decodeURIComponent(genreName)}"</strong>.
+                </p>
             </div>
         );
     }
 
     return (
         <div className="container py-5">
-            <h2 className="mb-4">Ecco tutte le canzoni del genere {genre.name}</h2>
+            <h2 className="mb-4">Ecco tutte le canzoni del genere <strong>{genre.name}</strong></h2>
 
             {genre.songs && genre.songs.length > 0 ? (
                 <ul className="list-group">
                     {genre.songs.map((song) => {
-                        const album = getAlbumById(song.album_id);
+                        const album = getAlbumById(albums, song.album_id);
                         return (
                             <li key={song.id} className="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <NavLink
-                                        to={`/song/${song.title}`}
+                                        to={`/song/${encodeURIComponent(song.title)}`}
                                         className="text-decoration-none fw-bold me-3"
                                     >
                                         🎵 {song.title}
@@ -78,7 +76,7 @@ export default function GenreDetails() {
                                 <div>
                                     {album && (
                                         <NavLink
-                                            to={`/album/${album.name}`}
+                                            to={`/album/${encodeURIComponent(album.name)}`}
                                             className="text-decoration-none text-secondary"
                                         >
                                             {album.name} 💿

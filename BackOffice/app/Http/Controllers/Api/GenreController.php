@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
-    /**
-     * Restituisce tutti i generi con le canzoni associate.
-     * Se viene passato un nome come parametro, filtra per nome.
-     */
+
     public function index(Request $request)
     {
         $query = Genre::with('songs');
@@ -21,5 +18,6 @@ class GenreController extends Controller
         }
 
         return response()->json($query->get());
+        // return response()->json($query->paginate(10));
     }
 }

@@ -7,26 +7,20 @@ use Illuminate\Http\Request;
 
 class GenreWebController extends Controller
 {
-    /**
-     * Mostra la lista di tutti i generi.
-     */
+    //Mostra la lista di tutti i generi.
     public function index()
     {
         $genres = Genre::with('songs')->get();
         return view('genres.index', compact('genres'));
     }
 
-    /**
-     * Mostra il form per creare un nuovo genere.
-     */
+    //Mostra il form per creare un nuovo genere.
     public function create()
     {
         return view('genres.create');
     }
 
-    /**
-     * Salva un nuovo genere nel database.
-     */
+    //Salva un nuovo genere nel database.
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -38,18 +32,14 @@ class GenreWebController extends Controller
         return redirect()->route('genres.index')->with('success', 'Genere creato con successo!');
     }
 
-    /**
-     * Mostra il form per modificare un genere.
-     */
+    //Mostra il form per modificare un genere.
     public function edit($id)
     {
         $genre = Genre::findOrFail($id);
         return view('genres.edit', compact('genre'));
     }
 
-    /**
-     * Aggiorna un genere esistente.
-     */
+    //Aggiorna un genere esistente.
     public function update(Request $request, $id)
     {
         $genre = Genre::findOrFail($id);
@@ -63,9 +53,7 @@ class GenreWebController extends Controller
         return redirect()->route('genres.index')->with('success', 'Genere aggiornato con successo!');
     }
 
-    /**
-     * Cancella un genere.
-     */
+    //Cancella un genere.
     public function destroy($id)
     {
         $genre = Genre::findOrFail($id);

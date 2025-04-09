@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
-    /**
-     * Restituisce tutte le canzoni con album e genere associati.
-     * Se viene passato un nome come parametro, filtra per titolo.
-     */
+
     public function index(Request $request)
     {
         $query = Song::with(['album', 'genre']);

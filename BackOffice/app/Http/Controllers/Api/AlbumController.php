@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
-    /**
-     * Restituisce tutti gli album con le canzoni associate
-     * Se viene passato un nome come parametro, filtra per nome.
-     */
+
     public function index(Request $request)
     {
         $query = Album::with('songs');

@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class AlbumWebController extends Controller
 {
-    /**
-     * Mostra la lista di tutti gli album.
-     */
+    //Mostra la lista di tutti gli album.
     public function index(Request $request)
     {
         // Recupera il termine di ricerca dalla query string
@@ -26,26 +24,20 @@ class AlbumWebController extends Controller
         return view('albums.index', compact('albums', 'search'));
     }
 
-    /**
-     * Mostra un singolo album.
-     */
+    //Mostra un singolo album.
     public function show($id)
     {
         $album = Album::with('songs')->findOrFail($id);
         return view('albums.show', compact('album'));
     }
 
-    /**
-     * Mostra il form per creare un nuovo album.
-     */
+    //Mostra il form per creare un nuovo album.
     public function create()
     {
         return view('albums.create');
     }
 
-    /**
-     * Salva un nuovo album nel database.
-     */
+    //Salva un nuovo album nel database.
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -60,18 +52,14 @@ class AlbumWebController extends Controller
         return redirect()->route('albums.index')->with('success', 'Album creato con successo!');
     }
 
-    /**
-     * Mostra il form per modificare un album.
-     */
+    //Mostra il form per modificare un album.
     public function edit($id)
     {
         $album = Album::findOrFail($id);
         return view('albums.edit', compact('album'));
     }
 
-    /**
-     * Aggiorna un album esistente.
-     */
+    //Aggiorna un album esistente.
     public function update(Request $request, $id)
     {
         $album = Album::findOrFail($id);
@@ -88,9 +76,7 @@ class AlbumWebController extends Controller
         return redirect()->route('albums.index')->with('success', 'Album aggiornato con successo!');
     }
 
-    /**
-     * Cancella un album.
-     */
+    //Cancella un album.
     public function destroy($id)
     {
         $album = Album::findOrFail($id);

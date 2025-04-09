@@ -3,6 +3,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import SearchBar from "../Components/SearchBar";
 import { NavLink } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
+import { getBadgeClass, getLinkPath, getLatestSongs, getLatestAlbums } from "../utils/helper";
 
 
 export default function Home() {
@@ -26,41 +27,8 @@ export default function Home() {
     }, [albums, songs, genres]);
 
 
-    const getBadgeClass = (type) => {
-        switch (type) {
-            case "Album":
-                return "bg-primary";
-            case "Song":
-                return "bg-success";
-            case "Genre":
-                return "bg-warning text-dark";
-            default:
-                return "bg-secondary";
-        }
-    }
-
-    const getLinkPath = (item) => {
-        const name = encodeURIComponent(item.name || item.title);
-        switch (item.type) {
-            case "Album":
-                return `/album/${name}`;
-            case "Song":
-                return `/song/${name}`;
-            case "Genre":
-                return `/genre/${name}`;
-            default:
-                return "#";
-        }
-    };
-
-    const latestSongs = [...songs]
-        .sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
-        .slice(0, 3);
-
-    const latestAlbums = [...albums]
-        .sort((a, b) => parseInt(b.year) - parseInt(a.year))
-        .slice(0, 3);
-
+    const latestAlbums = getLatestAlbums(albums);
+    const latestSongs = getLatestSongs(songs);
 
     return (
         <div className="container">
