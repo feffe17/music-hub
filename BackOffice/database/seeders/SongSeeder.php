@@ -104,7 +104,7 @@ class SongSeeder extends Seeder
             $album = $albums->get($albumName);
 
             if (!$album) {
-                $this->command->warn("⚠️ Album '$albumName' non trovato.");
+                $this->command->warn(" Album '$albumName' non trovato.");
                 continue;
             }
 
